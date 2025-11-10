@@ -57,10 +57,7 @@
     /* Layout container */
     .wrap{max-width:1080px;margin:0 auto;padding:18px 20px 80px;min-height:100vh;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}
 
-    /* HEADER - centered fixed card to avoid overflow
-       Key fixes:
-       - Constrain header width and center it (prevents nav drifting).
-       - Constrain header .logo-wrap img so header logo can't blow up. */
+    /* HEADER - centered fixed card to avoid overflow */
     header{
       display:flex;
       align-items:center;
@@ -85,7 +82,7 @@
     .brand{display:flex;align-items:center;gap:14px}
     header h1{font-family:'Orbitron',sans-serif;color:var(--gold);font-size:1.15rem;text-shadow:0 0 12px rgba(255,215,0,0.08);margin:0}
 
-    /* Constrain the header logo explicitly (this was the missing piece) */
+    /* Constrain header logo */
     header .logo-wrap{ display:inline-grid; place-items:center; width:56px; height:56px; border-radius:10px; overflow:hidden; flex:0 0 auto; }
     header .logo-wrap img{ width:100%; height:100%; object-fit:cover; display:block; }
 
@@ -99,7 +96,6 @@
 
     /* Hero */
     .hero{width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:36px 12px;margin-top:6px;gap:14px;position:relative;overflow:visible}
-    /* keep a separate constrained hero logo (larger than header logo) */
     .hero .logo-wrap{display:inline-grid;place-items:center;border-radius:16px;padding:6px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);box-shadow:var(--glow-2);width:min(420px, 42vw);max-width:420px}
     .hero .logo-wrap img{width:100%;max-width:320px;height:auto;border-radius:12px;display:block;filter:drop-shadow(0 18px 60px rgba(255,215,0,0.08)) saturate(1.05);transform-origin:center;animation:heroPulse 4.2s ease-in-out infinite}
     @keyframes heroPulse {0%{transform:scale(1)}50%{transform:scale(1.04)}100%{transform:scale(1)}}
@@ -209,7 +205,7 @@
       <section id="roster" aria-labelledby="mainRosterTitle">
         <h2 id="mainRosterTitle">Main Roster</h2>
         <div class="team" aria-hidden="false">
-          <div class="roster-grid" id="mainRoster"></div>
+          <div class="roster-grid" id="mainRoster" aria-live="polite"></div>
         </div>
       </section>
 
@@ -217,7 +213,7 @@
       <section id="jr" aria-labelledby="jrTitle">
         <h2 id="jrTitle">BNGKL Jr</h2>
         <div class="team">
-          <div class="roster-grid" id="jrRoster"></div>
+          <div class="roster-grid" id="jrRoster" aria-live="polite"></div>
         </div>
       </section>
 
@@ -248,9 +244,208 @@
   </div>
 
   <script>
-    // (Your existing JS remains unchanged) Init particles, render rosters, modal, reveal etc.
-    // I'll only add the minimal defensive check: if header logo is huge, this CSS will prevent it.
-    // ... (JS code from your current file should be copied here -- omitted for brevity)
+    // Wait for DOM to be ready before querying elements
+    document.addEventListener('DOMContentLoaded', () => {
+      try {
+        // Player data
+        const mainRoster = [
+          { id:'king', displayName:'King of war', role:'Hyper Carry', roleKey:'hyper', ign:'kingofwar.official', socials:{instagram:'https://instagram.com/kingofwar', twitter:'https://twitter.com/kingofwar'}, bio:'Hyper carry known for explosive late-game. Prefers scaling heroes and decisive positioning.', country:'ID', yearJoined:2024 },
+          { id:'dohensu', displayName:'dohensu', role:'Gold Laner', roleKey:'gold', ign:'dyy_voo', socials:{instagram:'https://instagram.com/dohensu'}, bio:'Gold laner with excellent laning phase and wave control.', country:'ID', yearJoined:2023 },
+          { id:'cyruz', displayName:'cyruz', role:'Roamer', roleKey:'roamer', ign:'cyruz', socials:{twitter:'https://twitter.com/cyruz'}, bio:'Aggressive roamer, strong at rotations and creating early leads.', country:'ID', yearJoined:2022 },
+          { id:'pasha', displayName:'pasha', role:'Mid Laner', roleKey:'mid', ign:'pasha', socials:{instagram:'https://instagram.com/pasha'}, bio:'Mid laner with great hero pool and lane mechanics.', country:'ID', yearJoined:2024 },
+          { id:'draken', displayName:'draken', role:'XP Laner', roleKey:'xp', ign:'draken', socials:{twitch:'https://twitch.tv/draken'}, bio:'XP laner with strong solo performance and split-push threat.', country:'ID', yearJoined:2021 }
+        ];
+
+        const jrRoster = [
+          { id:'tompel', displayName:'tompel', role:'Roamer', roleKey:'roamer', ign:'tompel_ig', socials:{instagram:'https://instagram.com/tompel'}, bio:'Energetic roamer with great map awareness.', country:'ID', yearJoined:2025 },
+          { id:'berjerk', displayName:'berjerk', role:'Hyper Carry', roleKey:'hyper', ign:'berjerk.official', socials:{instagram:'https://instagram.com/berjerk'}, bio:'Aggressive carry with high mechanical skill.', country:'ID', yearJoined:2025 },
+          { id:'zaki', displayName:'zaki', role:'XP Laner', roleKey:'xp', ign:'zaki_xp', socials:{twitch:'https://twitch.tv/zaki'}, bio:'Solid solo laner and split-push threat.', country:'ID', yearJoined:2024 },
+          { id:'seii', displayName:'seii', role:'Mid Laner', roleKey:'mid', ign:'seii_mid', socials:{instagram:'https://instagram.com/seii'}, bio:'Creative mid-laner with strong laning.', country:'ID', yearJoined:2024 },
+          { id:'satria', displayName:'satria', role:'Gold Laner', roleKey:'gold', ign:'satria_gl', socials:{instagram:'https://instagram.com/satria'}, bio:'Resourceful gold laner focusing on economy.', country:'ID', yearJoined:2023 }
+        ];
+
+        // Elements
+        const containers = {
+          main: document.getElementById('mainRoster'),
+          jr: document.getElementById('jrRoster')
+        };
+
+        // Defensive checks
+        if (!containers.main || !containers.jr) {
+          console.error('Roster container(s) not found:', { main: containers.main, jr: containers.jr });
+          return;
+        }
+
+        const modal = document.getElementById('playerModal');
+        const modalBackdrop = document.getElementById('modalBackdrop');
+        const modalClose = document.getElementById('modalClose');
+        const modalContent = document.getElementById('modalContent');
+
+        // Particle generation (lightweight)
+        function initParticles(count = 18) {
+          const root = document.getElementById('particles');
+          if (!root) return;
+          root.innerHTML = '';
+          for (let i=0;i<count;i++){
+            const el = document.createElement('div');
+            el.className = 'particle';
+            const left = Math.random()*100;
+            const size = 4 + Math.random()*14;
+            el.style.left = `${left}%`;
+            el.style.width = `${size}px`;
+            el.style.height = `${size}px`;
+            el.style.borderRadius = Math.random()*50 + '%';
+            el.style.background = `rgba(255,255,255,${0.02 + Math.random()*0.07})`;
+            const dur = 18 + Math.random()*18;
+            const delay = -Math.random()*dur;
+            el.style.animationDuration = `${dur}s`;
+            el.style.animationDelay = `${delay}s`;
+            el.style.top = `${80 + Math.random()*20}%`;
+            root.appendChild(el);
+          }
+        }
+
+        function badgeClass(k){
+          return { hyper:'hyper', gold:'gold', roamer:'roamer', mid:'mid', xp:'xp' }[k] || 'default';
+        }
+
+        function createCard(player, idx){
+          const btn = document.createElement('button');
+          btn.className = 'card reveal';
+          btn.type = 'button';
+          btn.dataset.player = player.id;
+          btn.setAttribute('aria-label', `${player.displayName}, ${player.role}`);
+          btn.style.transitionDelay = `${idx * 60}ms`;
+
+          const avatar = document.createElement('div');
+          avatar.className = 'avatar';
+          const initials = player.displayName.split(' ').map(s=>s[0]).slice(0,2).join('').toUpperCase();
+          avatar.textContent = initials;
+
+          const meta = document.createElement('div');
+          meta.className = 'meta';
+          const name = document.createElement('h3'); name.textContent = player.displayName;
+          const role = document.createElement('p'); role.textContent = player.role;
+          const row = document.createElement('div'); row.className = 'row';
+          const ign = document.createElement('span'); ign.className='small'; ign.textContent = `IGN: ${player.ign}`;
+          const joined = document.createElement('span'); joined.className='small muted'; joined.textContent = `Joined: ${player.yearJoined || '—'}`;
+          row.appendChild(ign);
+          row.appendChild(joined);
+
+          const badge = document.createElement('div');
+          badge.className = 'badge ' + badgeClass(player.roleKey);
+          badge.textContent = player.role.split(' ')[0];
+
+          meta.appendChild(name);
+          meta.appendChild(role);
+          meta.appendChild(row);
+
+          btn.appendChild(avatar);
+          btn.appendChild(meta);
+          btn.appendChild(badge);
+
+          btn.addEventListener('click', () => openModal(player));
+          return btn;
+        }
+
+        function renderRoster(containerEl, players){
+          containerEl.innerHTML = '';
+          players.forEach((p,i) => {
+            const c = createCard(p, i);
+            containerEl.appendChild(c);
+          });
+          // observe reveals (we'll set up observer below)
+          document.querySelectorAll('.reveal').forEach(el => {
+            if (io) io.observe(el);
+            else el.classList.add('active'); // fallback if IO unsupported
+          });
+        }
+
+        // modal functions
+        function openModal(p){
+          modal.setAttribute('aria-hidden', 'false');
+          modalContent.innerHTML = `
+            <div class="head">
+              <div class="big-avatar">${p.displayName.split(' ').map(s=>s[0]).slice(0,2).join('').toUpperCase()}</div>
+              <div>
+                <h2 id="modalTitle">${p.displayName}</h2>
+                <div class="role">${p.role} • <strong>${p.ign}</strong></div>
+                <div class="meta">Country: ${p.country || '—'} • Joined: ${p.yearJoined || '—'}</div>
+              </div>
+            </div>
+            <div class="bio">${escapeHtml(p.bio || 'No biography provided.')}</div>
+            <div class="links">
+              ${Object.entries(p.socials || {}).map(([k,v]) => `<a class="link" href="${v}" target="_blank" rel="noopener noreferrer">${k}</a>`).join('')}
+            </div>
+          `;
+          modalClose.focus();
+          document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(){
+          modal.setAttribute('aria-hidden', 'true');
+          modalContent.innerHTML = '';
+          document.body.style.overflow = '';
+        }
+
+        function escapeHtml(s){ return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+        modalBackdrop.addEventListener('click', closeModal);
+        modalClose.addEventListener('click', closeModal);
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') closeModal(); });
+
+        // IntersectionObserver for reveal animations
+        const io = ('IntersectionObserver' in window) ? new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('active');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 }) : null;
+
+        // Init
+        initParticles(18);
+        renderRoster(containers.main, mainRoster);
+        renderRoster(containers.jr, jrRoster);
+
+        // If IntersectionObserver exists, observe gallery & footer too
+        const gallery = document.getElementById('galleryGrid');
+        const footer = document.querySelector('footer');
+        if (io) {
+          if (gallery) io.observe(gallery);
+          if (footer) io.observe(footer);
+        } else {
+          // fallback: reveal everything immediately if IO not available
+          document.querySelectorAll('.reveal, .gallery, footer').forEach(el => el.classList.add('active'));
+        }
+
+        // small entrance of header elements
+        requestAnimationFrame(() => {
+          document.querySelectorAll('header, .hero h2, .hero p, section h2, footer').forEach((el, i) => {
+            el.classList.add('reveal');
+            el.style.transitionDelay = `${i * 60}ms`;
+            if (io) io.observe(el); else el.classList.add('active');
+          });
+        });
+
+        // accessibility: nav focus styles
+        document.querySelectorAll('nav a').forEach(a => {
+          a.addEventListener('focus', () => a.classList.add('focus'));
+          a.addEventListener('blur', () => a.classList.remove('focus'));
+        });
+
+        // responsive particles
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(() => initParticles(18), 250);
+        });
+
+      } catch (err) {
+        console.error('Initialization error:', err);
+      }
+    });
   </script>
 </body>
 </html>

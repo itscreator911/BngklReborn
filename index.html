@@ -6,168 +6,7 @@
   <title>BNGKL Reborn | Esports Team</title>
   <link rel="icon" type="image/png" href="logo.png" />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: radial-gradient(ellipse at top, #0a0a0a, #000);
-      color: #fff;
-      font-family: 'Montserrat', sans-serif;
-      overflow-x: hidden;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 25px 60px;
-      background: rgba(0, 0, 0, 0.5);
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 1000;
-      backdrop-filter: blur(10px);
-    }
-
-    header h1 {
-      font-family: 'Orbitron', sans-serif;
-      letter-spacing: 2px;
-      color: #FFD700;
-    }
-
-    nav a {
-      margin-left: 25px;
-      text-decoration: none;
-      color: #fff;
-      font-weight: 500;
-      transition: 0.3s;
-    }
-
-    nav a:hover {
-      color: #FFD700;
-      text-shadow: 0 0 10px #FFD700;
-    }
-
-    /* Hero Section */
-    .hero {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      text-align: center;
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), #000);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero img {
-      width: 220px;
-      filter: drop-shadow(0 0 25px #FFD700);
-      animation: pulse 2.5s infinite alternate;
-    }
-
-    @keyframes pulse {
-      from { transform: scale(1); filter: drop-shadow(0 0 10px #FFD700); }
-      to { transform: scale(1.05); filter: drop-shadow(0 0 35px #FFD700); }
-    }
-
-    .hero h2 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 2.5rem;
-      margin-top: 30px;
-      color: #FFD700;
-      text-shadow: 0 0 15px #FFD700;
-    }
-
-    .hero p {
-      font-size: 1.1rem;
-      margin-top: 10px;
-      color: #ccc;
-      max-width: 600px;
-    }
-
-    /* About */
-    section {
-      padding: 100px 15%;
-      text-align: center;
-    }
-
-    section h2 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 2rem;
-      margin-bottom: 20px;
-      color: #FFD700;
-    }
-
-    section p {
-      color: #ccc;
-      max-width: 800px;
-      margin: 0 auto;
-      line-height: 1.6;
-    }
-
-    /* Roster */
-    .roster {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-      margin-top: 50px;
-    }
-
-    .player {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 215, 0, 0.2);
-      padding: 20px;
-      border-radius: 12px;
-      transition: 0.3s;
-    }
-
-    .player:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 25px #FFD70044;
-    }
-
-    /* Gallery */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-      margin-top: 40px;
-    }
-
-    .gallery img {
-      width: 100%;
-      border-radius: 8px;
-      transition: 0.3s;
-    }
-
-    .gallery img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px #FFD70055;
-    }
-
-    /* Footer */
-    footer {
-      background: #000;
-      padding: 40px;
-      text-align: center;
-      color: #aaa;
-      font-size: 0.9rem;
-      border-top: 1px solid #222;
-    }
-
-    footer a {
-      color: #FFD700;
-      text-decoration: none;
-      margin-left: 8px;
-    }
-
-  </style>
+  <link rel="stylesheet" href="styles_base.css">
 </head>
 <body>
 
@@ -184,30 +23,24 @@
   <section class="hero">
     <img src="Screenshot 2025-11-02 174337.png" alt="BNGKL Logo">
     <h2>Welcome to BNGKL Reborn</h2>
-    <p>The official eSports team that combines strategy, mechanics, and brotherhood.  
-      Born from the streets — rebuilt stronger than ever.</p>
+    <p>The official eSports team that combines strategy, mechanics, and brotherhood. Born from the streets — rebuilt stronger than ever.</p>
   </section>
 
   <section id="about">
     <h2>Who We Are</h2>
-    <p>BNGKL Reborn is more than just a team — it’s a movement.  
-      We stand for discipline, passion, and teamwork. With roots in gaming culture and creative community,  
-      we aim to bring Indonesian eSports to the global stage.</p>
+    <p>BNGKL Reborn is more than just a team — it’s a movement. We stand for discipline, passion, and teamwork. With roots in gaming culture and creative community, we aim to bring Indonesian eSports to the global stage.</p>
   </section>
 
   <section id="roster">
     <h2>Our Roster</h2>
-    <div class="roster">
-      <div class="player"><h3>Player 1</h3><p>Role: Captain</p></div>
-      <div class="player"><h3>Player 2</h3><p>Role: Support</p></div>
-      <div class="player"><h3>Player 3</h3><p>Role: Sniper</p></div>
-      <div class="player"><h3>Player 4</h3><p>Role: Fragger</p></div>
-    </div>
+
+    <!-- Roster container — cards are rendered by script -->
+    <div class="roster" id="rosterGrid" aria-live="polite"></div>
   </section>
 
   <section id="gallery">
     <h2>Gallery</h2>
-    <div class="gallery">
+    <div class="gallery reveal">
       <img src="https://source.unsplash.com/500x500/?esports,team" alt="">
       <img src="https://source.unsplash.com/501x500/?gaming" alt="">
       <img src="https://source.unsplash.com/502x500/?cyberpunk" alt="">
@@ -217,10 +50,217 @@
 
   <footer id="contact">
     <p>Follow us on 
-      <a href="https://www.instagram.com/bngkl_reborn" target="_blank">@bngkl_reborn</a>
+      <a href="https://www.instagram.com/bngkl_reborn" target="_blank" rel="noopener noreferrer">@bngkl_reborn</a>
     </p>
     <p>© 2025 BNGKL Reborn | All Rights Reserved</p>
   </footer>
+
+  <!-- Player info modal -->
+  <div id="playerModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-panel" role="document">
+      <button id="modalClose" class="modal-close" aria-label="Close player info">×</button>
+      <div id="modalContent" class="modal-content"></div>
+    </div>
+  </div>
+
+  <script>
+    // Player dataset and roles
+    const players = [
+      {
+        id: 'king',
+        displayName: 'King of war',
+        role: 'Hyper Carry',
+        roleKey: 'hyper',
+        ign: 'kingofwar.official',
+        socials: { instagram: 'https://instagram.com/kingofwar', twitter: 'https://twitter.com/kingofwar' },
+        bio: 'Hyper carry known for explosive late-game plays and high-precision mechanics. Prefers scaling heroes and decisive positioning.',
+        country: 'ID', yearJoined: 2024
+      },
+      {
+        id: 'dohensu',
+        displayName: 'dohensu',
+        role: 'Gold Laner',
+        roleKey: 'gold',
+        ign: 'dohensu',
+        socials: { instagram: 'https://instagram.com/dohensu' },
+        bio: 'Reliable laning specialist focused on economy control and objective timing.',
+        country: 'ID', yearJoined: 2023
+      },
+      {
+        id: 'cyruz',
+        displayName: 'cyruz',
+        role: 'Roamer',
+        roleKey: 'roamer',
+        ign: 'cyruz',
+        socials: { twitter: 'https://twitter.com/cyruz' },
+        bio: 'Aggressive roamer and shot-caller in the early-mid game who excels at rotations.',
+        country: 'ID', yearJoined: 2022
+      },
+      {
+        id: 'pasha',
+        displayName: 'pasha',
+        role: 'Mid Laner',
+        roleKey: 'mid',
+        ign: 'pasha',
+        socials: { instagram: 'https://instagram.com/pasha' },
+        bio: 'Versatile mid laner with deep hero pool and clutch plays in 1v1 matchups.',
+        country: 'ID', yearJoined: 2024
+      },
+      {
+        id: 'draken',
+        displayName: 'draken',
+        role: 'XP Laner',
+        roleKey: 'xp',
+        ign: 'draken',
+        socials: { twitch: 'https://twitch.tv/draken' },
+        bio: 'Solo laner focused on sustainability, split-push, and map pressure.',
+        country: 'ID', yearJoined: 2021
+      }
+    ];
+
+    const rosterGrid = document.getElementById('rosterGrid');
+    const modal = document.getElementById('playerModal');
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const modalClose = document.getElementById('modalClose');
+    const modalContent = document.getElementById('modalContent');
+
+    // helper for badge class
+    function roleClass(k){
+      return {
+        hyper: 'badge-hyper',
+        gold: 'badge-gold',
+        roamer: 'badge-roamer',
+        mid: 'badge-mid',
+        xp: 'badge-xp'
+      }[k] || 'badge-default';
+    }
+
+    // build player card
+    function createCard(p, index){
+      const btn = document.createElement('button');
+      btn.className = 'player player-card reveal';
+      btn.type = 'button';
+      btn.setAttribute('data-player', p.id);
+      btn.setAttribute('aria-label', `${p.displayName}, ${p.role}`);
+      // stagger effect using inline style
+      btn.style.setProperty('--delay', (0.05 * index) + 's');
+
+      const avatar = document.createElement('div');
+      avatar.className = 'avatar';
+      // initials fallback
+      const initials = p.displayName.split(' ').map(s => s[0]).slice(0,2).join('').toUpperCase();
+      avatar.textContent = initials;
+
+      const meta = document.createElement('div');
+      meta.className = 'player-meta';
+
+      const name = document.createElement('h3');
+      name.textContent = p.displayName;
+
+      const sub = document.createElement('p');
+      sub.className = 'muted';
+      sub.textContent = p.role;
+
+      const infoRow = document.createElement('div');
+      infoRow.className = 'player-info-row';
+      const ig = document.createElement('span');
+      ig.className = 'small';
+      ig.textContent = `IGN: ${p.ign}`;
+      const joined = document.createElement('span');
+      joined.className = 'small muted';
+      joined.textContent = `Joined: ${p.yearJoined}`;
+
+      infoRow.appendChild(ig);
+      infoRow.appendChild(joined);
+
+      const badge = document.createElement('span');
+      badge.className = `role-badge ${roleClass(p.roleKey)}`;
+      badge.textContent = p.role.split(' ')[0];
+
+      meta.appendChild(name);
+      meta.appendChild(sub);
+      meta.appendChild(infoRow);
+
+      btn.appendChild(avatar);
+      btn.appendChild(meta);
+      btn.appendChild(badge);
+
+      btn.addEventListener('click', () => openModal(p.id));
+      return btn;
+    }
+
+    // render all players
+    function renderPlayers(){
+      rosterGrid.innerHTML = '';
+      players.forEach((p, i) => rosterGrid.appendChild(createCard(p, i)));
+      // reveal activation after insertion to trigger animation
+      requestAnimationFrame(() => {
+        document.querySelectorAll('.reveal').forEach((el, i) => {
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+          el.style.transitionDelay = `calc(var(--delay, 0s))`;
+        });
+      });
+    }
+
+    // modal open
+    function openModal(id){
+      const p = players.find(x => x.id === id);
+      if(!p) return;
+      modal.setAttribute('aria-hidden', 'false');
+      modalContent.innerHTML = `
+        <div class="modal-header">
+          <div class="modal-avatar">${p.displayName.split(' ').map(s=>s[0]).slice(0,2).join('').toUpperCase()}</div>
+          <div class="modal-title-wrap">
+            <h2 id="modalTitle">${p.displayName}</h2>
+            <div class="modal-role">${p.role} • <strong>${p.ign}</strong></div>
+            <div class="modal-meta">Country: ${p.country} • Joined: ${p.yearJoined}</div>
+          </div>
+        </div>
+        <div class="modal-body">
+          <p class="bio">${escapeHtml(p.bio)}</p>
+          <div class="modal-links">
+            ${Object.entries(p.socials || {}).map(([k,v]) => `<a class="link-pill" href="${v}" target="_blank" rel="noopener noreferrer">${k}</a>`).join('')}
+          </div>
+        </div>
+      `;
+      // focus close button
+      modalClose.focus();
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(){
+      modal.setAttribute('aria-hidden', 'true');
+      modalContent.innerHTML = '';
+      document.body.style.overflow = '';
+    }
+
+    // escape
+    function escapeHtml(str){
+      if(!str) return '';
+      return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    // events
+    modalBackdrop.addEventListener('click', closeModal);
+    modalClose.addEventListener('click', closeModal);
+    document.addEventListener('keydown', (e)=> {
+      if(e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') closeModal();
+    });
+
+    // init
+    renderPlayers();
+
+    // small reveal on scroll for gallery & other elements
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if(e.isIntersecting) e.target.classList.add('active');
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
 
 </body>
 </html>

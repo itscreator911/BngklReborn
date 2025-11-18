@@ -8,45 +8,42 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root{
-      --gold: #FFD700;
-      --gold-strong: #ffdb4d;
-      --muted: #bdbdbd;
-      --bg-0: #05060a;
-      --bg-1: #0b0f15;
-      --glass: rgba(255,255,255,0.03);
-      --card: rgba(255,255,255,0.02);
-      --accent: #8b5cf6;
-      --ease: cubic-bezier(.16,.84,.26,1);
-      --glow-1: 0 10px 40px rgba(139,92,246,0.14), 0 2px 6px rgba(139,92,246,0.08);
-      --glow-2: 0 18px 60px rgba(255,215,0,0.12), 0 4px 16px rgba(255,215,0,0.06);
+      --gold:#FFD700;
+      --gold-strong:#ffdf5a;
+      --muted:#bdbdbd;
+      --bg-start:#050505;
+      --bg-mid:#0b0b0b;
+      --bg-end:#020203;
+      --glass:rgba(255,255,255,0.03);
+      --card:rgba(255,255,255,0.02);
+
+      --glow-yellow:0 10px 40px rgba(255,200,50,0.12), 0 2px 10px rgba(255,170,0,0.06);
+      --glow-yellow-strong:0 30px 120px rgba(255,200,50,0.18), 0 8px 30px rgba(255,170,0,0.10);
+      --glow-purple:0 10px 40px rgba(139,92,246,0.12);
+      --ease:cubic-bezier(.16,.84,.26,1);
     }
 
-    /* Reset & base */
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%}
+    /* base reset */
+    *{margin:0;padding:0;box-sizing:border-box}
+    html,body{height:100%;width:100%}
     body{
-      font-family: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background:
-        radial-gradient(1200px 600px at 10% 10%, rgba(139,92,246,0.06), transparent 8%),
-        radial-gradient(900px 400px at 90% 90%, rgba(255,215,0,0.04), transparent 6%),
-        linear-gradient(180deg, var(--bg-0), var(--bg-1));
+      min-height:100vh;
+      font-family:'Montserrat',system-ui,-apple-system,'Segoe UI',Roboto,Arial;
       color:#fff;
+      background:
+        radial-gradient(800px 400px at 10% 10%, rgba(139,92,246,0.06), transparent 6%),
+        radial-gradient(900px 480px at 90% 90%, rgba(255,215,0,0.04), transparent 6%),
+        linear-gradient(180deg,var(--bg-start),var(--bg-mid) 40%, var(--bg-end));
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
-      overflow-y:overlay;
-      line-height:1.45;
-      padding-top:100px; /* reserve top space for header */
+      overflow-x:hidden;
+      transition: background .6s var(--ease);
+      padding-top:100px; /* reserve space for header */
     }
 
-    /* Particles */
-    .particles { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
-    .particle { position:absolute; width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.04); filter: blur(1px); opacity:0.6; animation: floatUp linear infinite; }
-    @keyframes floatUp { from { transform: translateY(30vh) scale(0.9); opacity:0 } 10% { opacity:.2 } 50% { opacity:.6 } to { transform: translateY(-40vh) scale(1.1); opacity:0 } }
-
-    /* Container */
     .wrap{max-width:1100px;margin:0 auto;padding:18px 20px 80px;min-height:100vh;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}
 
-    /* Header: centered fixed card with larger side gutters and reliable layout */
+    /* Header (centered by default) */
     header{
       display:flex;
       align-items:center;
@@ -58,80 +55,75 @@
       top:12px;
       left:50%;
       transform:translateX(-50%);
-      width:calc(100% - 160px);    /* plenty of side gutter */
+      width:calc(100% - 160px);
       max-width:1100px;
       border-radius:12px;
       border:1px solid rgba(255,255,255,0.03);
-      box-shadow:var(--glow-1);
+      box-shadow:var(--glow-yellow);
       transition:box-shadow .45s var(--ease), transform .45s var(--ease);
       z-index:1200;
     }
-    header:hover{ box-shadow: var(--glow-2); transform: translateX(-50%) translateY(-4px) }
+    header:hover{ box-shadow: var(--glow-yellow-strong); transform: translateX(-50%) translateY(-4px) }
 
-    /* Brand & nav layout: brand fixed size, nav grows and stays inside header */
+    /* alignment modifiers */
+    header.align-left{ left:12px; transform:none; width:calc(100% - 24px); }
+    header.align-right{ left:auto; right:12px; transform:none; width:calc(100% - 24px); }
+
     .brand{display:flex;align-items:center;gap:14px;flex:0 0 auto}
-    header h1{font-family:'Orbitron',sans-serif;color:var(--gold);font-size:1.05rem;margin:0;text-shadow:0 0 8px rgba(255,215,0,0.12)}
+    header h1{font-family:'Orbitron',sans-serif;letter-spacing:2px;color:var(--gold);font-size:1.05rem;text-shadow:0 0 8px rgba(255,215,0,0.12);margin:0}
 
-    /* header logo constrained */
-    header .logo-wrap{ display:inline-grid; place-items:center; width:56px; height:56px; border-radius:10px; overflow:hidden; flex:0 0 auto; background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent) }
+    /* header logo constraints */
+    header .logo-wrap{ display:inline-grid; place-items:center; width:56px; height:56px; border-radius:10px; overflow:hidden; background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent); flex:0 0 56px; }
     header .logo-wrap img{ width:100%; height:100%; object-fit:cover; display:block }
 
-    /* nav takes remaining space but respects header padding, keeps items inside */
-    nav{ display:flex; gap:16px; align-items:center; justify-content:flex-end; flex:1 1 auto; margin-left:12px; flex-wrap:wrap; }
-    nav a{
-      color:#fff;
-      text-decoration:none;
-      padding:8px 14px;
-      border-radius:10px;
-      font-weight:700;
-      transition:all .22s var(--ease);
-      font-size:.95rem;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      flex-shrink:0; /* prevents shrinking that causes layout overflow */
+    /* alignment controls */
+    .align-controls{ display:inline-flex; gap:8px; align-items:center; margin-left:8px; }
+    .align-controls button{
+      background:rgba(255,255,255,0.03); color:var(--muted); border:1px solid rgba(255,255,255,0.03); padding:6px 8px; border-radius:8px; cursor:pointer;
+      font-weight:700; font-size:0.85rem;
     }
-    nav a:hover{
-      color:var(--bg-1);
-      background:linear-gradient(90deg,var(--gold),var(--gold-strong));
-      box-shadow:0 12px 50px rgba(255,200,40,0.09);
-      transform:translateY(-3px);
-    }
-    nav a::after{ content:''; display:block; height:3px; width:0; background:linear-gradient(90deg,var(--gold),var(--gold-strong)); border-radius:999px; transition:width .28s var(--ease); margin-top:6px }
-    nav a:hover::after{ width:100% }
+    .align-controls button.active{ background:linear-gradient(90deg,var(--gold),var(--gold-strong)); color:#080808; box-shadow:0 12px 40px rgba(255,200,40,0.08) }
+
+    /* nav: flex-end, no shrinking of items */
+    nav{ display:flex; gap:14px; align-items:center; justify-content:flex-end; flex:1 1 auto; margin-left:12px; flex-wrap:wrap; }
+    nav a{ color:#fff; text-decoration:none; padding:8px 14px; border-radius:10px; font-weight:700; transition:all .22s var(--ease); font-size:.95rem; flex-shrink:0; }
+    nav a:hover{ color:var(--bg-mid); background:linear-gradient(90deg,var(--gold),var(--gold-strong)); box-shadow:0 12px 50px rgba(255,200,40,0.09); transform:translateY(-3px) }
 
     /* Hero */
     .hero{width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:36px 12px;margin-top:6px;gap:14px;position:relative;overflow:visible}
-    .hero .logo-wrap{display:inline-grid;place-items:center;border-radius:16px;padding:6px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);box-shadow:var(--glow-2);width:min(420px,42vw);max-width:420px}
+    .hero .logo-wrap{display:inline-grid;place-items:center;border-radius:16px;padding:6px;width:min(420px,42vw);max-width:420px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);box-shadow:var(--glow-yellow-strong)}
     .hero .logo-wrap img{width:100%;max-width:320px;height:auto;border-radius:12px;display:block;filter:drop-shadow(0 20px 60px rgba(0,0,0,0.7)) drop-shadow(0 0 22px rgba(255,200,40,0.18));animation:heroPulse 4.2s ease-in-out infinite}
     @keyframes heroPulse{0%{transform:scale(1)}50%{transform:scale(1.04)}100%{transform:scale(1)}}
     .hero h2{font-family:'Orbitron',sans-serif;color:var(--gold);font-size:2.6rem;line-height:1;text-shadow:0 0 18px rgba(255,200,40,0.18)}
     .hero p{color:var(--muted);max-width:760px}
 
-    /* Sections / roster / cards */
+    /* roster and cards */
     section{width:100%;padding:36px 0}
     section h2{font-family:'Orbitron',sans-serif;color:var(--gold);font-size:1.5rem;margin-bottom:10px;text-align:center}
     .team{background:transparent;border-radius:14px;padding:18px;margin-top:10px}
     .roster-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;align-items:stretch;justify-items:center}
-    .card{display:flex;gap:14px;align-items:center;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.008));padding:16px;border-radius:12px;border:1px solid rgba(255,215,0,0.04);cursor:pointer;transition:transform .5s var(--ease),box-shadow .5s var(--ease);position:relative;overflow:hidden;transform:translateY(20px);opacity:0;max-width:380px;width:100%}
-    .card::before{content:'';position:absolute;inset:-40%;background:radial-gradient(closest-side, rgba(255,215,0,0.03), transparent 45%);transform:translateY(30%);opacity:0;transition:opacity .6s}
-    .card:hover::before{opacity:1;transform:none}
-    .card:hover{transform:translateY(-10px) scale(1.01);box-shadow:0 28px 90px rgba(0,0,0,0.6), var(--glow-1)}
+    .card, .player{ /* I render cards with class 'card' in markup, and 'player' variant for compatibility */
+      display:flex;gap:14px;align-items:center;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.008));padding:16px;border-radius:12px;border:1px solid rgba(255,215,0,0.04);cursor:pointer;transition:transform .5s var(--ease),box-shadow .5s var(--ease);position:relative;overflow:hidden;transform:translateY(20px);opacity:0;max-width:380px;width:100%;
+    }
+    .card::before, .player::before{content:'';position:absolute;inset:-40%;background:radial-gradient(closest-side, rgba(255,215,0,0.03), transparent 45%);transform:translateY(30%);opacity:0;transition:opacity .6s}
+    .card:hover::before, .player:hover::before{opacity:1;transform:none}
+    .card:hover, .player:hover{transform:translateY(-10px) scale(1.01);box-shadow:0 28px 90px rgba(0,0,0,0.6), var(--glow-purple)}
     .avatar{flex:0 0 72px;height:72px;border-radius:12px;background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.006));display:flex;align-items:center;justify-content:center;font-weight:900;color:var(--gold);font-size:1.15rem;box-shadow:inset 0 -8px 18px rgba(0,0,0,0.6);transition:transform .36s var(--ease), box-shadow .36s var(--ease)}
-    .card:hover .avatar{transform:scale(1.06) rotate(-3deg);box-shadow:inset 0 -6px 26px rgba(0,0,0,0.5), 0 12px 40px rgba(255,200,40,0.08)}
+    .card:hover .avatar, .player:hover .avatar{transform:scale(1.06) rotate(-3deg);box-shadow:inset 0 -6px 26px rgba(0,0,0,0.5), 0 12px 40px rgba(255,200,40,0.08)}
     .meta{flex:1;text-align:left;min-width:0}
     .meta h3{font-family:'Orbitron',sans-serif;color:var(--gold);font-size:1.02rem;margin-bottom:4px}
     .meta p{margin:0;color:var(--muted);font-size:.92rem}
     .meta .row{display:flex;gap:12px;margin-top:8px;color:#ddd;font-size:.83rem;align-items:center}
     .badge{padding:6px 10px;border-radius:999px;font-weight:800;font-size:.78rem;color:#fff;margin-left:auto;flex:0 0 auto;transition:transform .25s var(--ease)}
-    .badge.hyper{background:#ef4444;box-shadow:0 20px 70px rgba(239,68,68,0.12)}
-    .badge.gold{background:#f59e0b;box-shadow:0 20px 70px rgba(245,158,11,0.12)}
-    .badge.roamer{background:#3b82f6;box-shadow:0 20px 70px rgba(59,130,246,0.08)}
-    .badge.mid{background:#8b5cf6;box-shadow:0 20px 70px rgba(139,92,246,0.08)}
-    .badge.xp{background:#10b981;box-shadow:0 20px 70px rgba(16,185,129,0.08)}
-    .card:hover .badge{transform:translateY(-6px);box-shadow:0 30px 110px rgba(255,200,40,0.12)}
+    .badge.hyper{background:#ef4444;box-shadow:0 10px 40px rgba(239,68,68,0.08)}
+    .badge.gold{background:#f59e0b;box-shadow:0 10px 40px rgba(245,158,11,0.08)}
+    .badge.roamer{background:#3b82f6;box-shadow:0 10px 40px rgba(59,130,246,0.06)}
+    .badge.mid{background:#8b5cf6;box-shadow:0 10px 40px rgba(139,92,246,0.06)}
+    .badge.xp{background:#10b981;box-shadow:0 10px 40px rgba(16,185,129,0.06)}
+    /* new jungler badge */
+    .badge.jungler{ background: linear-gradient(90deg,#ff6b6b,#ff8a7a); box-shadow:0 18px 60px rgba(255,107,107,0.12) }
 
-    /* Modal / gallery / reveal / footer */
+    /* modal / gallery / reveal / footer (kept concise) */
     .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:120;pointer-events:auto}
     .modal[aria-hidden="false"]{display:flex}
     .backdrop{position:absolute;inset:0;background:linear-gradient(180deg, rgba(2,6,23,0.7), rgba(2,6,23,0.85));backdrop-filter:blur(6px);opacity:0;transition:opacity .28s}
@@ -139,27 +131,13 @@
     .panel{position:relative;width:min(820px,96%);max-height:86vh;overflow:auto;border-radius:12px;padding:18px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.04);transform:translateY(14px) scale(.99);opacity:0;transition:transform .28s var(--ease),opacity .22s}
     .modal[aria-hidden="false"] .panel{transform:none;opacity:1}
     .close{position:absolute;right:12px;top:8px;background:transparent;border:0;color:var(--muted);font-size:22px;cursor:pointer}
-    .head{display:flex;gap:14px;align-items:center}
-    .big-avatar{width:86px;height:86px;border-radius:12px;background:linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));display:flex;align-items:center;justify-content:center;font-weight:900;color:var(--gold);font-size:1.35rem;box-shadow:var(--glow-2)}
-    .panel h2{margin:0;font-size:1.15rem}
-    .panel .role{color:var(--muted);margin-top:6px}
-    .panel .meta{color:#cfcfcf;margin-top:8px}
-    .panel .bio{color:var(--muted);margin-top:12px;line-height:1.6}
-    .links{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap}
-    .link{padding:9px 14px;border-radius:999px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));color:var(--gold);text-decoration:none;border:1px solid rgba(255,255,255,0.03);transition:transform .12s var(--ease),box-shadow .12s}
-    .link:hover{transform:translateY(-4px);box-shadow:0 18px 60px rgba(0,0,0,0.6)}
-
     .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:14px;opacity:0;transform:translateY(10px);transition:all .7s var(--ease)}
     .gallery.active{opacity:1;transform:none}
-    .gallery img{width:100%;border-radius:10px;display:block;transition:transform .5s var(--ease), box-shadow .5s;filter:contrast(1.03)}
-    .gallery img:hover{transform:translateY(-8px) scale(1.03);box-shadow:0 28px 80px rgba(0,0,0,0.6), 0 8px 30px rgba(255,215,0,0.06)}
-
     .reveal{opacity:0;transform:translateY(18px);transition:transform .62s var(--ease),opacity .62s var(--ease)}
     .reveal.active{opacity:1;transform:none}
+    footer{color:var(--muted);text-align:center;padding:28px 0;margin-top:6px;opacity:0;transform:translateY(12px);transition:all .6s var(--ease)}footer.active{opacity:1;transform:none}
 
-    footer{color:var(--muted);text-align:center;padding:28px 0;margin-top:6px;opacity:0;transform:translateY(12px);transition:all .6s var(--ease)}
-    footer.active{opacity:1;transform:none}
-
+    /* responsive */
     @media (max-width:920px){
       header{left:12px;right:12px;width:calc(100% - 24px);transform:none;top:10px;padding:12px}
       .hero h2{font-size:2.1rem}
@@ -168,7 +146,7 @@
     @media (max-width:560px){
       body{padding-top:110px}
       header{flex-direction:column;gap:8px;padding:12px}
-      nav{justify-content:center}
+      nav{justify-content:center;overflow:auto}
       .hero .logo-wrap img{max-width:200px}
       .roster-grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
       .avatar{width:56px;height:56px}
@@ -179,11 +157,12 @@
   <div class="particles" aria-hidden="true" id="particles"></div>
 
   <div class="wrap" id="appWrap">
-    <header role="banner" aria-label="BNGKL header">
+    <header id="siteHeader" class="align-center" role="banner" aria-label="BNGKL header">
       <div class="brand">
         <div class="logo-wrap" aria-hidden="true"><img src="Screenshot 2025-11-02 174337.png" alt="BNGKL logo"></div>
         <h1>BNGKL Reborn</h1>
       </div>
+
       <nav role="navigation" aria-label="Main navigation">
         <a href="#about">About</a>
         <a href="#roster">Main Roster</a>
@@ -191,6 +170,12 @@
         <a href="#gallery">Gallery</a>
         <a href="#contact">Contact</a>
       </nav>
+
+      <div class="align-controls" aria-hidden="false" title="Header alignment">
+        <button id="alignLeftBtn" aria-label="Align header left">L</button>
+        <button id="alignCenterBtn" aria-label="Align header center" class="active">C</button>
+        <button id="alignRightBtn" aria-label="Align header right">R</button>
+      </div>
     </header>
 
     <main role="main">
@@ -241,7 +226,7 @@
   <!-- Modal -->
   <div class="modal" id="playerModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="backdrop" id="modalBackdrop"></div>
-    <div class="panel" role="document" aria-labelledby="modalTitle">
+    <div class="panel" id="modalPanel" role="document" aria-labelledby="modalTitle">
       <button class="close" id="modalClose" aria-label="Close">×</button>
       <div id="modalContent"></div>
     </div>
@@ -249,7 +234,7 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Player data
+      // Updated main + jr rosters (BNGKL Jr changed as requested)
       const mainRoster = [
         { id:'king', displayName:'King of war', role:'Hyper Carry', roleKey:'hyper', ign:'kingofwar.official', socials:{instagram:'https://instagram.com/kingofwar', twitter:'https://twitter.com/kingofwar'}, bio:'Hyper carry known for explosive late-game. Prefers scaling heroes and decisive positioning.', country:'ID', yearJoined:2024 },
         { id:'dohensu', displayName:'dohensu', role:'Gold Laner', roleKey:'gold', ign:'dyy_voo', socials:{instagram:'https://instagram.com/dohensu'}, bio:'Gold laner with excellent laning phase and wave control.', country:'ID', yearJoined:2023 },
@@ -259,14 +244,14 @@
       ];
 
       const jrRoster = [
-        { id:'tompel', displayName:'tompel', role:'Roamer', roleKey:'roamer', ign:'tompel_ig', socials:{instagram:'https://instagram.com/tompel'}, bio:'Energetic roamer with great map awareness.', country:'ID', yearJoined:2025 },
-        { id:'berjerk', displayName:'berjerk', role:'Hyper Carry', roleKey:'hyper', ign:'berjerk.official', socials:{instagram:'https://instagram.com/berjerk'}, bio:'Aggressive carry with high mechanical skill.', country:'ID', yearJoined:2025 },
-        { id:'zaki', displayName:'zaki', role:'XP Laner', roleKey:'xp', ign:'zaki_xp', socials:{twitch:'https://twitch.tv/zaki'}, bio:'Solid solo laner and split-push threat.', country:'ID', yearJoined:2024 },
-        { id:'seii', displayName:'seii', role:'Mid Laner', roleKey:'mid', ign:'seii_mid', socials:{instagram:'https://instagram.com/seii'}, bio:'Creative mid-laner with strong laning.', country:'ID', yearJoined:2024 },
-        { id:'satria', displayName:'satria', role:'Gold Laner', roleKey:'gold', ign:'satria_gl', socials:{instagram:'https://instagram.com/satria'}, bio:'Resourceful gold laner focusing on economy.', country:'ID', yearJoined:2023 }
+        { id:'superbarr', displayName:'SUPER Barr.', role:'ROAM', roleKey:'roamer', ign:'SUPER_Barr', socials:{instagram:'https://instagram.com/super_barr'}, bio:'Roamer with high mobility and map control.', country:'ID', yearJoined:2025 },
+        { id:'superberzerk', displayName:'SUPER Berzerk.', role:'JUNGLER', roleKey:'jungler', ign:'SUPER_Berzerk', socials:{instagram:'https://instagram.com/super_berzerk'}, bio:'Jungler who creates pressure and opens plays.', country:'ID', yearJoined:2025 },
+        { id:'kyrasigma', displayName:'KYRA SIGMA', role:'GOLD', roleKey:'gold', ign:'kyra_sigma', socials:{instagram:'https://instagram.com/kyrasigma'}, bio:'Gold laner focused on economy and objectives.', country:'ID', yearJoined:2024 },
+        { id:'zackyab', displayName:'zackyab', role:'EXP', roleKey:'xp', ign:'zackyab', socials:{twitch:'https://twitch.tv/zackyab'}, bio:'XP laner, strong in solo-lane and split-push.', country:'ID', yearJoined:2024 },
+        { id:'ererki_seii', displayName:'ererki seii', role:'MID', roleKey:'mid', ign:'ererki_seii', socials:{instagram:'https://instagram.com/ererki_seii'}, bio:'Mid laner with creative playmaking and rotations.', country:'ID', yearJoined:2024 }
       ];
 
-      // Elements
+      // elements
       const containers = {
         main: document.getElementById('mainRoster'),
         jr: document.getElementById('jrRoster')
@@ -276,35 +261,43 @@
       const modalBackdrop = document.getElementById('modalBackdrop');
       const modalClose = document.getElementById('modalClose');
       const modalContent = document.getElementById('modalContent');
+      const header = document.getElementById('siteHeader');
 
+      // defensive
       if (!containers.main || !containers.jr) {
         console.error('Roster containers missing', containers);
         return;
       }
 
-      // Particles
+      // particles
       function initParticles(count = 18) {
         if (!particlesRoot) return;
         particlesRoot.innerHTML = '';
-        for (let i = 0; i < count; i++) {
+        for (let i=0;i<count;i++){
           const el = document.createElement('div');
           el.className = 'particle';
-          const left = Math.random() * 100;
-          const size = 4 + Math.random() * 14;
-          el.style.left = `${left}%`;
-          el.style.width = `${size}px`;
-          el.style.height = `${size}px`;
-          el.style.borderRadius = Math.random() * 50 + '%';
+          el.style.left = `${Math.random()*100}%`;
+          const size = 4 + Math.random()*14;
+          el.style.width = `${size}px`; el.style.height = `${size}px`;
+          el.style.borderRadius = `${Math.random()*50}%`;
           el.style.background = `rgba(255,255,255,${0.02 + Math.random()*0.07})`;
-          const dur = 18 + Math.random() * 18;
+          const dur = 18 + Math.random()*18;
           el.style.animationDuration = `${dur}s`;
-          el.style.animationDelay = `${-Math.random() * dur}s`;
+          el.style.animationDelay = `${-Math.random()*dur}s`;
           el.style.top = `${80 + Math.random()*20}%`;
           particlesRoot.appendChild(el);
         }
       }
 
-      function badgeClass(k){ return { hyper:'hyper', gold:'gold', roamer:'roamer', mid:'mid', xp:'xp' }[k] || 'default'; }
+      function badgeClass(k){
+        if (k === 'jungler') return 'jungler';
+        if (k === 'hyper') return 'hyper';
+        if (k === 'gold') return 'gold';
+        if (k === 'roamer') return 'roamer';
+        if (k === 'mid') return 'mid';
+        if (k === 'xp') return 'xp';
+        return 'default';
+      }
 
       function createCard(player, idx){
         const btn = document.createElement('button');
@@ -326,7 +319,8 @@
         const joined = document.createElement('span'); joined.className = 'small muted'; joined.textContent = `Joined: ${player.yearJoined || '—'}`;
         row.appendChild(ign); row.appendChild(joined);
 
-        const badge = document.createElement('div'); badge.className = 'badge ' + badgeClass(player.roleKey);
+        const badge = document.createElement('div');
+        badge.className = 'badge ' + badgeClass(player.roleKey);
         badge.textContent = player.role.split(' ')[0];
 
         meta.appendChild(name); meta.appendChild(role); meta.appendChild(row);
@@ -339,10 +333,10 @@
       function renderRoster(containerEl, players){
         containerEl.innerHTML = '';
         players.forEach((p,i) => containerEl.appendChild(createCard(p,i)));
+        // observe reveals
         document.querySelectorAll('.reveal').forEach(el => { if (io) io.observe(el); else el.classList.add('active'); });
       }
 
-      // modal
       function openModal(p){
         modal.setAttribute('aria-hidden','false');
         modalContent.innerHTML = `
@@ -366,12 +360,12 @@
       modalClose.addEventListener('click', closeModal);
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') closeModal(); });
 
-      // IntersectionObserver (with fallback)
+      // IntersectionObserver with fallback
       const io = ('IntersectionObserver' in window) ? new IntersectionObserver((entries) => {
         entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('active'); io.unobserve(entry.target); } });
       }, { threshold: 0.12 }) : null;
 
-      // Init
+      // init
       initParticles(20);
       renderRoster(containers.main, mainRoster);
       renderRoster(containers.jr, jrRoster);
@@ -385,7 +379,7 @@
         document.querySelectorAll('.reveal, .gallery, footer').forEach(el => el.classList.add('active'));
       }
 
-      // small entrance of header elements & headings
+      // reveal headings
       requestAnimationFrame(() => {
         document.querySelectorAll('header, .hero h2, .hero p, section h2, footer').forEach((el, i) => {
           el.classList.add('reveal');
@@ -393,6 +387,32 @@
           if (io) io.observe(el); else el.classList.add('active');
         });
       });
+
+      // header alignment controls
+      const alignLeftBtn = document.getElementById('alignLeftBtn');
+      const alignCenterBtn = document.getElementById('alignCenterBtn');
+      const alignRightBtn = document.getElementById('alignRightBtn');
+      function setHeaderAlign(mode){
+        header.classList.remove('align-left','align-center','align-right');
+        if(mode === 'left') header.classList.add('align-left');
+        else if(mode === 'right') header.classList.add('align-right');
+        else header.classList.add('align-center');
+        // update buttons
+        [alignLeftBtn, alignCenterBtn, alignRightBtn].forEach(b => b.classList.remove('active'));
+        if(mode === 'left') alignLeftBtn.classList.add('active');
+        else if(mode === 'right') alignRightBtn.classList.add('active');
+        else alignCenterBtn.classList.add('active');
+        // persist
+        try{ localStorage.setItem('bngkl_header_align', mode); }catch(e){}
+      }
+      alignLeftBtn.addEventListener('click', ()=>setHeaderAlign('left'));
+      alignCenterBtn.addEventListener('click', ()=>setHeaderAlign('center'));
+      alignRightBtn.addEventListener('click', ()=>setHeaderAlign('right'));
+      // load persisted
+      try{
+        const saved = localStorage.getItem('bngkl_header_align') || 'center';
+        setHeaderAlign(saved);
+      }catch(e){ setHeaderAlign('center') }
 
       // nav focus style
       document.querySelectorAll('nav a').forEach(a => {

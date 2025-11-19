@@ -4,16 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BNGKL Reborn | Esports Team</title>
-  <link rel="icon" type="image/png" href="logo.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/gallery/logo.jpg">
+
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
   <div id="particles"></div>
 
+  <!-- HEADER -->
   <header>
     <div class="brand">
-      <div class="logo-wrap"><img src="Screenshot 2025-11-02 174337.png" alt="Logo"></div>
+      <div class="logo-wrap">
+        <img src="assets/gallery/logo.jpg" alt="Logo">
+      </div>
       <h1>BNGKL Reborn</h1>
     </div>
 
@@ -28,14 +35,18 @@
 
   <main class="app-inner">
 
+    <!-- HERO -->
     <section class="hero">
       <div class="logo-wrap hero-logo">
-        <img src="Screenshot 2025-11-02 174337.png" alt="Hero Logo">
+        <img src="assets/gallery/logo.jpg" alt="Hero Logo">
       </div>
+
       <h2>Welcome to BNGKL Reborn</h2>
-      <p>Strategy, mechanics, and brotherhood — rebuilt stronger than ever. Klik pemain untuk melihat profil singkat mereka.</p>
+      <p>Strategy, mechanics, and brotherhood — rebuilt stronger than ever.
+      Klik pemain untuk melihat profil singkat mereka.</p>
     </section>
 
+    <!-- ABOUT -->
     <section id="about">
       <h2>Who We Are</h2>
       <p>BNGKL Reborn adalah komunitas esports yang fokus pada pengembangan talenta lokal dan kompetisi profesional.</p>
@@ -53,21 +64,6 @@
       <div class="roster-grid" id="jrRoster"></div>
     </section>
 
-    <!-- GALLERY -->
-    <section id="gallery">
-      <h2>Gallery</h2>
-      <div class="gallery coming-soon">
-        <p>📸 Gallery Coming Soon</p>
-      </div>
-    </section>
-
-    <footer id="contact">
-      <p>Follow us on
-        <a href="https://www.instagram.com/bngkl_reborn"
-           target="_blank" rel="noopener noreferrer">@bngkl_reborn</a>
-      </p>
-      <p>© 2025 BNGKL Reborn | All Rights Reserved</p>
-    </footer>
   </main>
 
   <!-- PLAYER MODAL -->
@@ -188,4 +184,38 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 </body>
+<section class="gallery-section">
+    <div class="container">
+        <h2 class="gallery-title">Match Gallery</h2>
+
+        <!-- BNGKL vs GUTS -->
+        <h3 class="gallery-subtitle">BNGKL vs GUTS 2-0 </h3>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="assets/gallery/guts1.jpg" alt="BNGKL vs GUTS 1">
+            </div>
+            <div class="gallery-item">
+                <img src="assets/gallery/guts2.jpg" alt="BNGKL vs GUTS 2">
+            </div>
+        </div>
+
+        <!-- BNGKL vs EVK -->
+        <h3 class="gallery-subtitle">BNGKL vs EVK 2-0</h3>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="assets/gallery/evk1.jpg" alt="BNGKL vs EVK 1">
+            </div>
+            <div class="gallery-item">
+                <img src="assets/gallery/evk2.jpg" alt="BNGKL vs EVK 2">
+            </div>
+        </div>
+    </div>
+</section>
+    <footer id="contact">
+      <p>Follow us on
+        <a href="https://www.instagram.com/bngkl_reborn"
+           target="_blank" rel="noopener noreferrer">@bngkl_reborn</a>
+      </p>
+      <p>© 2025 BNGKL Reborn | All Rights Reserved</p>
+    </footer>
 </html>

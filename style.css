@@ -1,148 +1,181 @@
-/* =============== BASE STYLE (DEEP GLOW + LAYOUT + NAV FIXES) =============== */
-/* Use this file to replace your existing styles. It keeps the deep-glow visuals
-   and fixes the header/nav overflow so the top-right buttons no longer feel off. */
+/* ==========================
+   BASE THEME / COLORS & FONTS
+   ========================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Montserrat:wght@400;600&display=swap');
 
 *{margin:0;padding:0;box-sizing:border-box}
 
-/* color / glow tokens */
 :root{
   --gold:#FFD700;
   --gold-strong:#ffdf5a;
   --muted:#bdbdbd;
+
   --bg-start:#050505;
   --bg-mid:#0b0b0b;
   --bg-end:#020203;
-  --glass:rgba(255,255,255,0.03);
-  --card:rgba(255,255,255,0.02);
 
-  --glow-yellow:0 10px 40px rgba(255,200,50,0.12), 0 2px 10px rgba(255,170,0,0.06);
-  --glow-yellow-strong:0 30px 120px rgba(255,200,50,0.18), 0 8px 30px rgba(255,170,0,0.10);
-  --glow-purple:0 10px 40px rgba(139,92,246,0.12);
+  --glow-yellow:0 14px 40px rgba(255,220,120,0.18);
+  --glow-yellow-strong:0 26px 90px rgba(255,220,120,0.30);
+
   --ease:cubic-bezier(.16,.84,.26,1);
 }
 
-/* base */
-html,body{height:100%;width:100%}
+html, body{
+  width:100%;
+  height:100%;
+}
+
 body{
-  min-height:100vh;
-  font-family:'Montserrat',system-ui,-apple-system,'Segoe UI',Roboto,Arial;
-  color:#fff;
+  font-family:'Montserrat',sans-serif;
   background:
-    radial-gradient(800px 400px at 10% 10%, rgba(139,92,246,0.06), transparent 6%),
-    radial-gradient(900px 480px at 90% 90%, rgba(255,215,0,0.04), transparent 6%),
-    linear-gradient(180deg,var(--bg-start),var(--bg-mid) 40%, var(--bg-end));
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
+    radial-gradient(800px 400px at 10% 10%, rgba(139,92,246,0.06), transparent 50%),
+    radial-gradient(700px 400px at 90% 90%, rgba(255,215,0,0.06), transparent 50%),
+    linear-gradient(180deg,var(--bg-start),var(--bg-mid) 50%, var(--bg-end));
+  color:#fff;
   overflow-x:hidden;
-  transition: background .6s var(--ease);
-  /* reserve space for fixed header so content won't jump under it */
-  padding-top:100px; /* increased to match header card height */
+  padding-top:110px;
 }
 
-/* center container */
-.app-inner{
-  max-width:1100px;
-  margin:0 auto;
-  padding:18px;
-  position:relative;
-  z-index:2;
+
+
+/* ==========================
+   PARTICLES (ESPORT AESTHETIC)
+   ========================== */
+
+#particles{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
 }
 
-/* Header: centered fixed card with wide horizontal gutters to avoid edge crowding.
-   Key fixes:
-   - width uses calc(100% - 160px) to ensure large side gutters on wide screens
-   - max-width to keep header centered
-   - header .brand has fixed sizing so logo doesn't push nav
-   - nav is flex:1 and justifies to the end; nav items won't shrink (flex-shrink:0)
-*/
+.particle{
+  position:absolute;
+  width:8px;height:8px;
+  background:rgba(255,255,255,0.06);
+  border-radius:50%;
+  animation:floatUp linear infinite;
+}
+
+@keyframes floatUp{
+  0%{transform:translateY(120vh); opacity:0}
+  10%{opacity:.3}
+  90%{opacity:.2}
+  100%{transform:translateY(-10vh); opacity:0}
+}
+
+
+
+/* ==========================
+   HEADER
+   ========================== */
+
 header{
-  display:flex;
-  align-items:center;
-  gap:18px;
-  padding:14px 34px; /* larger horizontal padding for breathing room */
-  background:linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0.006));
-  backdrop-filter:blur(8px);
   position:fixed;
   top:12px;
   left:50%;
   transform:translateX(-50%);
-  width:calc(100% - 160px);       /* generous side gutters to prevent nav hugging edge */
+  width:calc(100% - 160px);
   max-width:1100px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,0.03);
-  box-shadow:var(--glow-yellow);
-  transition:box-shadow .45s var(--ease), transform .45s var(--ease);
-  z-index:1200;
-}
-header:hover{ box-shadow: var(--glow-yellow-strong); transform: translateX(-50%) translateY(-4px) }
 
-/* Brand: fixed size so logo never forces header growth */
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+
+  padding:14px 28px;
+  backdrop-filter:blur(10px);
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.05);
+  box-shadow:var(--glow-yellow);
+  z-index:1000;
+  transition:0.4s var(--ease);
+}
+
+header:hover{
+  box-shadow:var(--glow-yellow-strong);
+  transform:translateX(-50%) translateY(-4px);
+}
+
 .brand{
   display:flex;
   align-items:center;
-  gap:14px;
-  flex:0 0 auto; /* don't let brand grow or shrink */
+  gap:12px;
 }
+
+.logo-wrap{
+  width:52px;
+  height:52px;
+  overflow:hidden;
+  border-radius:10px;
+  background:rgba(255,255,255,0.04);
+}
+.logo-wrap img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.hero {
+  padding-top: 120px;  
+}
+
+.hero .logo-wrap{
+  width:min(520px, 55vw); 
+  max-width:520px;
+  padding:12px;           
+}
+.logo-wrap img{
+  width:100%;
+  height:auto;
+  object-fit:cover;
+  display:block;
+}
+
 header h1{
   font-family:'Orbitron',sans-serif;
-  letter-spacing:2px;
+  font-size:1.1rem;
   color:var(--gold);
-  font-size:1.05rem;
-  text-shadow:0 0 8px rgba(255,215,0,0.12), 0 0 16px rgba(255,200,40,0.06);
-  margin:0;
+  letter-spacing:2px;
 }
 
-/* Explicitly constrain header logo (prevents huge logo) */
-header .logo-wrap{
-  display:inline-grid;
-  place-items:center;
-  width:56px;
-  height:56px;
-  border-radius:10px;
-  overflow:hidden;
-  background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
-  flex:0 0 56px;
-}
-header .logo-wrap img{ width:100%; height:100%; object-fit:cover; display:block }
 
-/* Nav: takes remaining space, aligns items to the right, prevents shrinking */
+
+/* ==========================
+   NAVIGATION — CENTERED
+   ========================== */
+
 nav{
   display:flex;
   align-items:center;
-  gap:14px;
-  justify-content:flex-end;
-  flex:1 1 auto;    /* grow to fill header, but stay within width */
-  margin-left:12px;
-  flex-wrap:wrap;
+  justify-content:center;
+  gap:18px;
+  flex:1;
 }
+
 nav a{
-  color:#fff;
+  font-weight:600;
   text-decoration:none;
+  color:#fff;
   padding:8px 14px;
   border-radius:8px;
-  font-weight:600;
-  transition:all .22s var(--ease);
-  font-size:.95rem;
-  flex-shrink:0; /* prevents nav items from shrinking into odd positions */
+  transition:0.25s var(--ease);
 }
+
 nav a:hover{
-  color:var(--bg-mid);
   background:linear-gradient(90deg,var(--gold),var(--gold-strong));
-  box-shadow:0 12px 50px rgba(255,200,40,0.09);
+  color:#111;
+  box-shadow:0 16px 40px rgba(255,215,0,0.20);
 }
 
-/* If too many nav items for narrow screens, allow scroll inside nav but keep header layout intact */
-@media (max-width:480px){
-  nav{overflow-x:auto;padding-bottom:6px; -webkit-overflow-scrolling:touch}
-  nav::-webkit-scrollbar{height:8px}
-  nav::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.06);border-radius:999px}
-}
 
-/* HERO: constrain sizes so image never gets enormous */
+
+/* ==========================
+   HERO SECTION
+   ========================== */
+
 .hero{
-  height:calc(70vh);
   min-height:420px;
   display:flex;
   flex-direction:column;
@@ -150,89 +183,257 @@ nav a:hover{
   justify-content:center;
   text-align:center;
   gap:14px;
-  padding:18px 12px;
-  position:relative;
-  overflow:visible;
+  margin-top:20px;
 }
 
-/* wrap logo and apply float/glow but constrain size */
-.hero .logo-wrap{
-  width:min(420px, 42vw);
-  max-width:420px;
-  padding:8px;
+.hero-logo{
+  width:260px;
+  padding:14px;
   border-radius:14px;
-  background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.006));
-  display:inline-grid;
-  place-items:center;
-  margin-bottom:12px;
+  background:rgba(255,255,255,0.04);
   box-shadow:var(--glow-yellow-strong);
-  animation:slowFloat 6s var(--ease) infinite;
+  animation:floatHero 6s ease-in-out infinite;
 }
-@keyframes slowFloat{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
 
-/* keep the image responsive and limited */
-.hero img{
+@keyframes floatHero{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-6px)}
+  100%{transform:translateY(0)}
+}
+
+.hero-logo img{
   width:100%;
-  max-width:320px;       /* prevents massive image */
-  height:auto;
-  border-radius:8px;
-  display:block;
-  filter:drop-shadow(0 20px 60px rgba(0,0,0,0.7)) drop-shadow(0 0 22px rgba(255,200,40,0.18));
-  transition:transform .7s var(--ease), filter .6s var(--ease);
-}
-.hero img:hover{
-  transform:scale(1.04) rotate(-1deg);
-  filter:drop-shadow(0 30px 120px rgba(255,200,45,0.24));
+  border-radius:10px;
 }
 
-/* hero heading neon */
 .hero h2{
   font-family:'Orbitron',sans-serif;
-  font-size:2.6rem;
-  margin:8px 0 0;
+  font-size:2.4rem;
   color:var(--gold);
-  line-height:1;
-  text-shadow:
-    0 0 6px rgba(255,255,255,0.06),
-    0 0 18px rgba(255,200,45,0.25),
-    0 0 40px rgba(255,170,0,0.18),
-    0 12px 40px rgba(0,0,0,0.6);
-  animation:fadeUp .9s var(--ease) both;
+  text-shadow:0 0 18px rgba(255,215,0,0.26);
 }
-@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.hero p{color:var(--muted);max-width:760px;margin-top:6px;animation:fadeUp .95s var(--ease) both;animation-delay:.06s}
 
-/* roster grid and cards (unchanged visuals) */
-.team{background:transparent;border-radius:12px;padding:6px;margin-top:8px}
-.roster-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;align-items:stretch;justify-items:center;margin-top:18px;width:100%}
-
-/* Player card */
-.player{width:100%;max-width:360px;display:flex;gap:14px;align-items:center;background:linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0.007));border:1px solid rgba(255,215,0,0.04);padding:16px;border-radius:12px;cursor:pointer;position:relative;overflow:visible;transform:translateY(12px);opacity:0;transition:transform .6s var(--ease), box-shadow .6s var(--ease), background .5s var(--ease)}
-.player::before{content:'';position:absolute;inset:-6px;border-radius:14px;pointer-events:none;background:radial-gradient(closest-side, rgba(255,200,40,0.06), transparent 45%);opacity:0;transform:scale(.98);transition:all .45s var(--ease)}
-.player:hover::before{opacity:1;transform:scale(1)}
-.player:hover{transform:translateY(-8px);box-shadow:0 26px 80px rgba(0,0,0,0.6), var(--glow-yellow);background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.006))}
-
-/* avatar, meta, badges - same deep glow visuals kept */
-.avatar{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.006));display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--gold);font-size:1.05rem;box-shadow:inset 0 -8px 22px rgba(0,0,0,0.6), 0 8px 30px rgba(255,200,40,0.06);position:relative;transition:transform .36s var(--ease), box-shadow .36s var(--ease)}
-.avatar::after{content:'';position:absolute;inset:-6px;border-radius:14px;background:linear-gradient(90deg, rgba(255,215,0,0.12), rgba(139,92,246,0.05));filter:blur(12px);opacity:0;transition:opacity .36s}
-.player:hover .avatar{transform:scale(1.06) rotate(-3deg);box-shadow:inset 0 -6px 26px rgba(0,0,0,0.5), 0 18px 60px rgba(255,200,45,0.12)}
-.player:hover .avatar::after{opacity:1}
-
-/* rest (modal, gallery, reveal, footer) unchanged for brevity - keep your existing rules */
-
-@media (max-width:920px){
-  header{left:12px;right:12px;width:calc(100% - 24px);transform:none;top:10px;padding:12px}
-  .hero{height:auto;padding:28px 12px}
-  .hero h2{font-size:2.1rem}
-  .hero img{max-width:260px}
-  .player{max-width:100%}
+.hero p{
+  color:var(--muted);
+  max-width:720px;
 }
-@media (max-width:560px){
-  body{padding-top:110px}
-  header{flex-direction:column;gap:8px;padding:12px}
-  nav{justify-content:center;overflow:auto}
-  .hero img{max-width:200px}
-  .hero h2{font-size:1.6rem}
-  .roster-grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
-  .avatar{width:56px;height:56px}
+
+
+
+/* ==========================
+   SECTIONS
+   ========================== */
+
+section h2{
+  font-family:'Orbitron',sans-serif;
+  font-size:1.7rem;
+  color:var(--gold);
+  margin:30px 0 12px;
+  text-align:center;
+}
+
+section p{
+  text-align:center;
+  color:#ddd;
+  max-width:760px;
+  margin:0 auto;
+  line-height:1.6;
+}
+
+
+
+/* ==========================
+   ROSTER GRID
+   ========================== */
+
+.roster-grid{
+  margin-top:20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:20px;
+}
+
+
+
+/* ==========================
+   PLAYER CARD
+   ========================== */
+
+.player{
+  width:100%;
+  background:rgba(255,255,255,0.03);
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.05);
+  padding:16px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  cursor:pointer;
+  transition:0.3s var(--ease);
+  position:relative;
+  overflow:hidden;
+}
+
+.player:hover{
+  transform:translateY(-6px);
+  box-shadow:var(--glow-yellow);
+}
+
+.avatar{
+  width:62px;
+  height:62px;
+  border-radius:12px;
+  background:rgba(255,255,255,0.06);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.4rem;
+  font-weight:800;
+  color:var(--gold);
+}
+
+.meta h3{
+  color:#FFD700;
+  font-weight:700;
+  font-size:1.1rem;
+  margin-bottom:4px;
+}
+
+.meta p{
+  margin:0;
+  color:var(--muted);
+  font-size:0.9rem;
+}
+
+.ign{
+  display:block;
+  margin-top:6px;
+  font-size:0.85rem;
+  color:#ddd;
+}
+
+
+
+/* ==========================
+   GALLERY — COMING SOON
+   ========================== */
+
+.gallery{
+  padding:40px;
+  text-align:center;
+  border:1px dashed rgba(255,255,255,0.15);
+  border-radius:12px;
+}
+
+.gallery p{
+  font-size:1.1rem;
+  opacity:0.7;
+}
+
+
+
+/* ==========================
+   MODAL PLAYER — CLEAN ESPORT STYLE
+   ========================== */
+
+.modal{
+  position:fixed;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:rgba(0,0,0,0.65);
+  backdrop-filter:blur(6px);
+  z-index:2000;
+  opacity:0;
+  pointer-events:none;
+  transition:0.3s ease;
+}
+
+.modal[aria-hidden="false"]{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.modal-panel{
+  background:rgba(255,255,255,0.05);
+  padding:26px;
+  width:min(420px, 90%);
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.08);
+  box-shadow:var(--glow-yellow);
+  animation:modalPop 0.35s var(--ease);
+}
+
+@keyframes modalPop{
+  from{opacity:0; transform:scale(0.92)}
+  to{opacity:1; transform:scale(1)}
+}
+
+.modal-close{
+  background:transparent;
+  border:none;
+  font-size:28px;
+  color:#fff;
+  cursor:pointer;
+  position:absolute;
+  right:20px;
+  top:14px;
+}
+
+.modal-panel h2{
+  font-family:'Orbitron',sans-serif;
+  color:var(--gold);
+  margin-bottom:10px;
+  text-align:center;
+}
+
+.modal-panel p{
+  text-align:center;
+  color:#eee;
+  margin:6px 0;
+}
+
+.modal-panel .bio{
+  margin-top:10px;
+  opacity:0.85;
+}
+
+
+
+/* ==========================
+   FOOTER
+   ========================== */
+
+footer{
+  text-align:center;
+  margin:40px 0;
+  opacity:0.8;
+}
+
+footer a{
+  color:var(--gold);
+  text-decoration:none;
+}
+
+
+
+/* ==========================
+   RESPONSIVE
+   ========================== */
+
+@media(max-width:600px){
+  header{
+    width:calc(100% - 30px);
+    padding:14px;
+    flex-direction:column;
+    gap:10px;
+  }
+
+  nav{
+    flex-wrap:wrap;
+  }
+
+  .hero h2{font-size:1.8rem}
+  .hero-logo{width:200px}
 }

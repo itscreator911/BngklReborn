@@ -3,219 +3,196 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BNGKL Reborn | Esports Team</title>
-
-  <!-- Favicon -->
+  <title>BNGKL Reborn | Pro Esports Team</title>
   <link rel="icon" type="image/png" href="assets/gallery/logo.jpg">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+
   <div id="particles"></div>
 
-  <!-- HEADER -->
   <header>
     <div class="brand">
-      <div class="logo-wrap">
-        <img src="assets/gallery/logo.jpg" alt="Logo">
+      <div class="logo-frame">
+          <img src="assets/gallery/logo.jpg" alt="Logo" onerror="this.style.display='none'">
       </div>
-      <h1>BNGKL Reborn</h1>
+      <h1 class="glitch-text" data-text="BNGKL REBORN">BNGKL REBORN</h1>
     </div>
-
     <nav>
       <a href="#about">About</a>
-      <a href="#roster">Main Roster</a>
-      <a href="#jr">BNGKL Jr</a>
+      <a href="#roster">Roster</a>
+      <a href="#jr">Junior</a>
       <a href="#gallery">Gallery</a>
-      <a href="#contact">Contact</a>
     </nav>
   </header>
 
-  <main class="app-inner">
-
-    <!-- HERO -->
+  <main>
     <section class="hero">
-      <div class="logo-wrap hero-logo">
+      <div class="hero-logo-wrap">
         <img src="assets/gallery/logo.jpg" alt="Hero Logo">
       </div>
-
-      <h2>Welcome to BNGKL Reborn</h2>
-      <p>Strategy, mechanics, and brotherhood — rebuilt stronger than ever.
-      Klik pemain untuk melihat profil singkat mereka.</p>
+      <h2 class="glitch-text" data-text="WE ARE BNGKL">WE ARE BNGKL</h2>
+      <p>Strategy, mechanics, and brotherhood — rebuilt stronger than ever.</p>
     </section>
 
-    <!-- ABOUT -->
     <section id="about">
-      <h2>Who We Are</h2>
-      <p>BNGKL Reborn adalah komunitas esports yang fokus pada pengembangan talenta lokal dan kompetisi profesional.</p>
+      <h2 class="section-title glitch-text" data-text="MISSION LOG">MISSION LOG</h2>
+      <div class="about-content">
+        <p>BNGKL Reborn adalah komunitas esports elit yang berfokus pada dominasi mekanik, strategi makro tingkat tinggi, dan regenerasi talenta lokal untuk kancah profesional.</p>
+      </div>
     </section>
 
-    <!-- MAIN ROSTER -->
     <section id="roster">
-      <h2>Main Roster</h2>
-      <div class="roster-grid" id="mainRoster"></div>
-    </section>
+      <h2 class="section-title glitch-text" data-text="MAIN PROTOCOL">MAIN PROTOCOL</h2>
+      <div class="roster-grid main-roster-grid" id="mainRoster"></div> </section>
 
-    <!-- JR ROSTER -->
     <section id="jr">
-      <h2>BNGKL Jr</h2>
+      <h2 class="section-title glitch-text" data-text="TRAINING GROUND">TRAINING GROUND</h2>
       <div class="roster-grid" id="jrRoster"></div>
     </section>
 
+    <section id="gallery">
+       <h2 class="section-title glitch-text" data-text="BATTLE LOGS">BATTLE LOGS</h2>
+       
+       <div class="match-group">
+          <h3 class="match-title">/// VS GUTS [WIN 2-0]</h3>
+          <div class="gallery-grid">
+             <div class="gallery-item"><img src="assets/gallery/guts1.jpg" alt="Match 1"></div>
+             <div class="gallery-item"><img src="assets/gallery/guts2.jpg" alt="Match 2"></div>
+          </div>
+       </div>
+
+       <div class="match-group">
+          <h3 class="match-title">/// VS EVK [WIN 2-0]</h3>
+          <div class="gallery-grid">
+             <div class="gallery-item"><img src="assets/gallery/evk1.jpg" alt="Match 3"></div>
+             <div class="gallery-item"><img src="assets/gallery/evk2.jpg" alt="Match 4"></div>
+          </div>
+       </div>
+    </section>
   </main>
 
-  <!-- PLAYER MODAL -->
+  <footer id="contact">
+    <a href="https://www.instagram.com/bngkl_reborn" target="_blank">INSTAGRAM: @BNGKL_REBORN</a>
+    <p>© 2025 BNGKL Reborn Esports. All Systems Operational.</p>
+  </footer>
+
   <div class="modal" id="playerModal" aria-hidden="true">
-    <div class="modal-backdrop" id="modalBackdrop"></div>
     <div class="modal-panel">
       <button class="modal-close" id="modalClose">×</button>
       <div id="modalContent"></div>
     </div>
   </div>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      
+      /* --- CONFIGURATION --- */
+      // Pastikan nama file sesuai dengan yang ada di folder assets/gallery/
+      // Gunakan format PNG Transparan agar efeknya bagus
+      const mainRoster = [
+        { id:'king', displayName:'King of War', role:'Hyper Carry', ign:'kingofwar.official', 
+          img: 'assets/gallery/yss.png', 
+          bio:'The General. Memimpin perang dengan panah dan pedang.', stats:'KDA: 9.2' },
+        { id:'dohensu', displayName:'Dohensu', role:'Gold Laner', ign:'dyy_voo', 
+          img: 'assets/gallery/granger.png', 
+          bio:'One shot, one kill. Positioning yang tidak tersentuh.', stats:'GPM: 900' },
+        { id:'cyruz', displayName:'Cyruz', role:'Roamer', ign:'cyruz', 
+          img: 'assets/gallery/gatotkaca.png', 
+          bio:'Otot kawat tulang besi. Inisiator tank terdepan.', stats:'Assist: 15.4' },
+        { id:'pasha', displayName:'Pasha', role:'Mid Laner', ign:'pshazhr', 
+          img: 'assets/gallery/valentina.png', 
+          bio:'Copycat supreme. Menguasai ultimate lawan.', stats:'DPM: 5200' },
+        { id:'draken', displayName:'Draken', role:'XP Laner', ign:'draken', 
+          img: 'assets/gallery/chou.png', 
+          bio:'Kungfu master. Culik core musuh dalam sekejap.', stats:'Dmg Taken: 320k' },
+      ];
 
-  /* ------------------------
-     PLAYER DATA
-  ------------------------ */
-  const mainRoster = [
-    { id:'king', displayName:'King of war', role:'Hyper Carry', ign:'kingofwar.official',
-      bio:'Hyper carry known for explosive late-game.',
-      yearJoined:2018 },
-    { id:'dohensu', displayName:'Superr dohensu', role:'Gold Laner', ign:'dyy_voo',
-      bio:'Gold laner with excellent laning phase.',
-      yearJoined:2022 },
-    { id:'cyruz', displayName:'cyruz', role:'Roamer', ign:'cyruz',
-      bio:'Aggressive roamer with high tempo.',
-      yearJoined:2022 },
-    { id:'pasha', displayName:'pasha', role:'Mid Laner', ign:'pshazhr',
-      bio:'Creative mid laner with wide hero pool.',
-      yearJoined:2024 },
-    { id:'draken', displayName:'draken', role:'XP Laner', ign:'draken',
-      bio:'XP laner with strong split-push threat.',
-      yearJoined:2021 },
-  ];
+      const jrRoster = [
+        { displayName:'SUPER Barr', role:'Roamer', ign:'SUPER_Barr', bio:'Junior Talent' },
+        { displayName:'SUPER Berzerk', role:'Jungler', ign:'SUPER_Berzerk', bio:'Junior Talent' },
+        { displayName:'Kyra Sigma', role:'Gold', ign:'kyra_sigma', bio:'Junior Talent' },
+        { displayName:'Zackyab', role:'EXP', ign:'zackyab', bio:'Junior Talent' },
+        { displayName:'Ererki Seii', role:'Mid', ign:'ererki_seii', bio:'Junior Talent' },
+      ];
 
-  const jrRoster = [
-    { id:'superbarr', displayName:'SUPER Barr.', role:'Roamer', ign:'SUPER_Barr',
-      bio:'Roamer with precise timing.', yearJoined:2025 },
-    { id:'superberzerk', displayName:'SUPER Berzerk.', role:'Jungler', ign:'SUPER_Berzerk',
-      bio:'Aggressive jungler with early tempo.', yearJoined:2025 },
-    { id:'kyrasigma', displayName:'KYRA SIGMA', role:'Gold', ign:'kyra_sigma',
-      bio:'Gold laner with solid mechanics.', yearJoined:2024 },
-    { id:'zackyab', displayName:'zackyab', role:'EXP', ign:'zackyab',
-      bio:'Strong macro and lane control.', yearJoined:2024 },
-    { id:'ererki', displayName:'ererki seii', role:'Mid', ign:'ererki_seii',
-      bio:'Smart rotations and map awareness.', yearJoined:2024 },
-  ];
+      const mainContainer = document.getElementById("mainRoster");
+      const jrContainer = document.getElementById("jrRoster");
 
-  const containers = {
-    main: document.getElementById("mainRoster"),
-    jr: document.getElementById("jrRoster")
-  };
+      /* --- CREATE CARD FUNCTION --- */
+      function createCard(p, isMain) {
+        const card = document.createElement("div");
+        card.className = "player-card";
+        
+        let visualContent = '';
 
-  function createCard(p) {
-    const card = document.createElement("button");
-    card.className = "player reveal";
-    card.innerHTML = `
-      <div class="avatar">${p.displayName[0].toUpperCase()}</div>
-      <div class="meta">
-        <h3>${p.displayName}</h3>
-        <p>${p.role}</p>
-        <span class="ign">IGN: ${p.ign}</span>
-      </div>
-    `;
-    card.onclick = () => openModal(p);
-    return card;
-  }
+        if(isMain) {
+          visualContent = `
+            <div class="card-cyber-bg"></div>
+            <img src="${p.img}" class="hero-png" alt="${p.displayName}" onerror="this.style.display='none'">
+          `;
+        } else {
+          visualContent = `
+            <div class="mystery-wrapper">
+              <img src="assets/gallery/mystery_soldier.png" class="mystery-soldier" alt="Mystery Player" onerror="this.style.display='none'">
+              <span class="mystery-mark">?</span>
+            </div>
+          `;
+        }
 
-  function renderRoster(container, players) {
-    players.forEach(p => container.appendChild(createCard(p)));
-  }
+        card.innerHTML = `
+          ${visualContent}
+          <div class="info-overlay">
+            <h3>${p.displayName}</h3>
+            <p>${p.role}</p>
+            <span style="font-size:0.8rem; color:#aaa;">IGN: ${p.ign}</span>
+          </div>
+        `;
+        
+        card.onclick = () => openModal(p);
+        return card;
+      }
 
-  renderRoster(containers.main, mainRoster);
-  renderRoster(containers.jr, jrRoster);
+      mainRoster.forEach(p => mainContainer.appendChild(createCard(p, true)));
+      jrRoster.forEach(p => jrContainer.appendChild(createCard(p, false)));
 
-  /* ------------------------
-     MODAL
-  ------------------------ */
-  const modal = document.getElementById("playerModal");
-  const modalBackdrop = document.getElementById("modalBackdrop");
-  const modalClose = document.getElementById("modalClose");
-  const modalContent = document.getElementById("modalContent");
+      /* --- PARTICLES ENGINE --- */
+      const pContainer = document.getElementById("particles");
+      for(let i=0; i<30; i++){
+        let p = document.createElement("div");
+        p.className = "particle";
+        p.style.left = Math.random() * 100 + "%";
+        p.style.animationDuration = (Math.random() * 10 + 5) + "s";
+        p.style.animationDelay = (Math.random() * 5) + "s";
+        pContainer.appendChild(p);
+      }
 
-  function openModal(p) {
-    modalContent.innerHTML = `
-      <h2>${p.displayName}</h2>
-      <p><strong>Role:</strong> ${p.role}</p>
-      <p><strong>IGN:</strong> ${p.ign}</p>
-      <p class="bio">${p.bio}</p>
-    `;
-    modal.setAttribute("aria-hidden", "false");
-  }
+      /* --- MODAL LOGIC --- */
+      const modal = document.getElementById("playerModal");
+      const closeBtn = document.getElementById("modalClose");
+      const content = document.getElementById("modalContent");
 
-  function closeModal() {
-    modal.setAttribute("aria-hidden", "true");
-  }
+      function openModal(p) {
+        content.innerHTML = `
+          <h2 style="font-family:var(--font-head); color:var(--gold-primary); margin-bottom:10px;">${p.displayName}</h2>
+          <p style="color:#fff; font-size:1.2rem; text-transform:uppercase; letter-spacing:2px; margin-bottom:20px;">// ${p.role}</p>
+          <div style="border-top:1px solid #333; padding-top:15px; color:#ccc;">
+             <p>IGN: <span style="color:#fff;">${p.ign}</span></p>
+             <p style="margin-top:5px;">Bio: <em style="color:#aaa;">"${p.bio}"</em></p>
+          </div>
+        `;
+        modal.setAttribute("aria-hidden", "false");
+      }
 
-  modalBackdrop.addEventListener("click", closeModal);
-  modalClose.addEventListener("click", closeModal);
-
-  document.addEventListener("keydown", e => {
-    if (e.key === "Escape") closeModal();
-  });
-
-  /* ------------------------
-     PARTICLES
-  ------------------------ */
-  const particleContainer = document.getElementById("particles");
-  for (let i = 0; i < 20; i++) {
-    const p = document.createElement("div");
-    p.className = "particle";
-    p.style.left = Math.random() * 100 + "%";
-    p.style.animationDelay = Math.random() * -20 + "s";
-    p.style.animationDuration = 20 + Math.random() * 20 + "s";
-    particleContainer.appendChild(p);
-  }
-});
-</script>
-
+      closeBtn.onclick = () => modal.setAttribute("aria-hidden", "true");
+      window.onclick = (e) => { if(e.target == modal) modal.setAttribute("aria-hidden", "true"); }
+    });
+  </script>
 </body>
-<section class="gallery-section">
-    <div class="container">
-        <h2 class="gallery-title">Match Gallery</h2>
-
-        <!-- BNGKL vs GUTS -->
-        <h3 class="gallery-subtitle">BNGKL vs GUTS 2-0 </h3>
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="assets/gallery/guts1.jpg" alt="BNGKL vs GUTS 1">
-            </div>
-            <div class="gallery-item">
-                <img src="assets/gallery/guts2.jpg" alt="BNGKL vs GUTS 2">
-            </div>
-        </div>
-
-        <!-- BNGKL vs EVK -->
-        <h3 class="gallery-subtitle">BNGKL vs EVK 2-0</h3>
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="assets/gallery/evk1.jpg" alt="BNGKL vs EVK 1">
-            </div>
-            <div class="gallery-item">
-                <img src="assets/gallery/evk2.jpg" alt="BNGKL vs EVK 2">
-            </div>
-        </div>
-    </div>
-</section>
-    <footer id="contact">
-      <p>Follow us on
-        <a href="https://www.instagram.com/bngkl_reborn"
-           target="_blank" rel="noopener noreferrer">@bngkl_reborn</a>
-      </p>
-      <p>© 2025 BNGKL Reborn | All Rights Reserved</p>
-    </footer>
 </html>
